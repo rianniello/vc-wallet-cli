@@ -1,0 +1,12 @@
+tmp
+log
+vendor
+build
+.DS_Store
+.idea
+.env
+.gradle/
+out/
+.kotlintest
+.kotlin
+.idea/workspace.xml
