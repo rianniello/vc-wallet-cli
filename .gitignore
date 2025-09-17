@@ -10,3 +10,4 @@ out/
 .kotlintest
 .kotlin
 .idea/workspace.xml
+wallet-vc.jwt
