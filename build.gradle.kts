@@ -18,4 +18,5 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson:2.3.12")
     implementation("com.nimbusds:nimbus-jose-jwt:9.41")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
+    implementation("ch.qos.logback:logback-classic:1.4.14")
 }
