@@ -53,3 +53,19 @@ sequenceDiagram
     V->>V: Verify signature, nonce/state, issuer trust, revocation
     V-->>U: Show result (valid / invalid), start app session
 ```
+
+Who orchestrates what?
+
+Issuance (OID4VCI)
+- Wallet scans a credential_offer QR/deeplink that you show somewhere (web/app).
+- Wallet calls your AS /token using the pre-authorized code (and optional PIN) from the offer.
+- Wallet calls your Issuer /credential with that access token.
+- Issuer signs the VC and returns it to the wallet.
+  Orchestrator: the wallet. Your Issuer just exposes the endpoints; no bash needed.
+
+Presentation / Verification (OID4VP + PE)
+- Verifier server creates a request (nonce, state, presentation_definition) and returns a deeplink/QR from /authorize-presentation.
+- User scans the QR with their wallet.
+- Wallet builds a VP that satisfies your definition and redirects to your Verifier /callback?vp_token=…&state=….
+- Verifier checks state→nonce, verifies VC(s), applies policy, then establishes an app session.
+- Orchestrator: the wallet (building/submitting the VP) and your verifier (tracking state/nonce and verifying on /callback). Your bash vp-token helper was only for local testing.
