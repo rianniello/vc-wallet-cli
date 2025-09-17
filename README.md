@@ -1,21 +1,23 @@
 # vc-wallet-cli
 VC Wallet CLI for development.
-```
-./gradlew run
 
-1) Issuance
-Fetching access token...
-Requesting credential...
-Saved VC to wallet-vc.jwt
-2) Presentation
-Got AR from verifier:
-state=x
-nonce=y
-uri=openid-vc://?client_id=https://verifier.example.com/callback&response_type=vp_token&redirect_uri=https://verifier.example.com/callback&nonce=z&presentation_definition_uri=https://verifier.example.com/pd/university-id
-Submitting to verifier...
-Verifier said: {"valid":true,"aud_ok":false,"state":"x","verified":[{"issuer":"https://issuer.example.com/issuer","subjectId":"did:example:holder123","types":["VerifiableCredential","UniversityID"],"studentId":"S1234567"}],"submission":"{}"}
+Issue
 ```
+./gradlew :issue --args="--issuer http://localhost:8080 --code PREAUTH-123 --out wallet-vc.jwt"
 
+Issuing from http://localhost:8080 with pre-authorized code PREAUTH-123 ...
+Saved: wallet-vc.jwt
+Issued VC (first 40 chars): <vc>
+```
+Present
+```
+./gradlew :present --args="--verifier http://localhost:9080 --vc wallet-vc.jwt"
+
+AR: state=x nonce=y
+URI: openid-vc://?client_id=https://verifier.example.com/callback&response_type=vp_token&redirect_uri=https://verifier.example.com/callback&nonce=y&state=y&presentation_definition_uri=https://verifier.example.com/pd/university-id
+Verifier response: {"valid":true,"aud_ok":false,"state":"x","verified":[{"issuer":"https://issuer.example.com/issuer","subjectId":"did:example:holder123","types":["VerifiableCredential","UniversityID"],"studentId":"S1234567"}],"submission":"{}"}
+
+```
 
 Issuance
 ```mermaid
